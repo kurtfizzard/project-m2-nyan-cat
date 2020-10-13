@@ -34,7 +34,16 @@ container.style.width = "525px";
 document.addEventListener("keydown", keydownHandler);
 
 function playAudio(url) {
-  const music = new Audio(url).play();
+  const music = new Audio(url);
+  music.addEventListener(
+    "ended",
+    function () {
+      this.currentTime = 0;
+      this.play();
+    },
+    false
+  );
+  music.play();
 }
 
 const START_BUTTON = document.createElement("button");
